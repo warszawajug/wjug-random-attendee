@@ -1,7 +1,7 @@
-import {Injectable} from "@angular/core";
-import {Http, Jsonp} from "@angular/http";
-import "rxjs/add/operator/toPromise";
-import {Attendee} from "./attendee";
+import {Injectable} from '@angular/core';
+import {Http, Jsonp} from '@angular/http';
+import 'rxjs/add/operator/toPromise';
+import {Attendee} from './attendee';
 
 let and = '&';
 let wjugUrlBase = 'https://api.meetup.com/Warszawa-JUG/events/';
@@ -16,15 +16,18 @@ export class AttendeesService {
   constructor(private http: Http, private jsonp: Jsonp) {
   }
 
-  getAttendees(eventId:number, token:string): Promise<Attendee[]> {
-      return this.jsonp.get(this.buildLastMeetupUrl(eventId, token))
-        .toPromise()
-        .then(response => response.json().data as Attendee[])
-        .catch(this.handleError);
-    }
+  getAttendees(eventId: number, token: string): Promise<Attendee[]> {
+    return this.jsonp.get(this.buildLastMeetupUrl(eventId, token))
+      .toPromise()
+      .then(response => response.json().data as Attendee[])
+      .then(response =>
+        response.filter(element => element.rsvp.response === 'yes')
+      )
+      .catch(this.handleError);
+  }
 
   getLastMeetupId(): Promise<number> {
-  let allPastMeetups = wjugUrlBase + '?' + jsonpCallback + '&status=past';
+    let allPastMeetups = wjugUrlBase + '?' + jsonpCallback + '&status=past';
 
     return this.jsonp.get(allPastMeetups)
       .toPromise()

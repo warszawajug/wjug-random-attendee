@@ -1,6 +1,7 @@
 export class Attendee {
   status: String;
   member: Member;
+  rsvp: Rsvp;
 }
 
 export class Member {
@@ -10,5 +11,9 @@ export class Member {
 }
 
 export class Photo {
-  thumb: String;
+  thumb_link: String;
+}
+
+export class Rsvp {
+  response: String;
 }
