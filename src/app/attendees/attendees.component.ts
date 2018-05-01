@@ -19,11 +19,11 @@ export class AttendeesComponent {
   constructor(private attendeeService: AttendeesService) {
   }
 
-  realUrl(photo: Photo): String {
+    realUrl(photo: Photo): String {
     try {
-      return photo.thumb;
+      return photo.thumb_link;
     } catch (err) {
-      return 'http://s.quickmeme.com/img/a8/a8022006b463b5ed9be5a62f1bdbac43b4f3dbd5c6b3bb44707fe5f5e26635b0.jpg'
+      return 'http://s.quickmeme.com/img/a8/a8022006b463b5ed9be5a62f1bdbac43b4f3dbd5c6b3bb44707fe5f5e26635b0.jpg';
     }
   }
 
@@ -50,9 +50,9 @@ export class AttendeesComponent {
 
   randomAttendee(): void {
     if (this.attendees.length == 0) {
-      alert("Patience, my young apprentice")
+      alert("Patience, my young apprentice");
     } else if (this.attendees.length == this.usedIndexes.length) {
-      alert("Everyone was already choosen")
+      alert("Everyone was already choosen");
     } else {
       this.winners.unshift(this.attendees[this.randomAttendeeIndexWithoutRepetition()]);
     }
